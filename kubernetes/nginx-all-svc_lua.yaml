@@ -40,7 +40,7 @@ data:
             local sec = 1
             for key, val in pairs(args) do
                 if key == "sec" then
-                  if type(val) == 'number' then
+                  if type(val+0) == 'number' then
                     sec = val
                   end
                 end
