@@ -37,14 +37,16 @@ data:
                 -- one can choose to ignore or reject the current request here
             end
    
+            local sec = 1
             for key, val in pairs(args) do
-                if type(val) == "table" then
-                    ngx.say(key, ": ", table.concat(val, ", "))
-                else
-                    ngx.say(key, ": ", val)
+                if key == "sec" then
+                  if type(val) == 'number' then
+                    sec = val
+                  end
                 end
             end
-
+            
+            ngx.say("sec:",sec)
 
             -- ngx.sleep(1)
             -- ngx.print("wait 1sec")
