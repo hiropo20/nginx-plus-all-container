@@ -47,6 +47,7 @@ data:
                 if key == "sec" then
                   if tonumber(val) then
                     local sec = tonumber(val) 
+                    ngx.say(tonumber(val))
                   else
                     local sec = 1
                   end
