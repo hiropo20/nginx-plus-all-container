@@ -30,8 +30,24 @@ data:
         }
         location /wait {
           content_by_lua_block {
-            ngx.sleep(1)
-            ngx.print("wait 1sec")
+
+            local args, err = ngx.req.get_uri_args()
+   
+            if err == "truncated" then
+                -- one can choose to ignore or reject the current request here
+            end
+   
+            for key, val in pairs(args) do
+                if type(val) == "table" then
+                    ngx.say(key, ": ", table.concat(val, ", "))
+                else
+                    ngx.say(key, ": ", val)
+                end
+            end
+
+
+            -- ngx.sleep(1)
+            -- ngx.print("wait 1sec")
           }
 
         }
