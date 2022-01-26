@@ -38,21 +38,15 @@ data:
             end
    
             local sec = 1
-
             for key, val in pairs(args) do
                 if key == "sec" then
                   if tonumber(val) then
                     sec = tonumber(val) 
-                    ngx.say(tonumber(val))
                   end
                 end
             end
-                --  if type(val+0) == 'number' then
-                --    sec = val
-                --  end
-            
-            ngx.say("sec:",sec)
 
+            ngx.say("sec:",sec)
             ngx.sleep(sec)
             ngx.say("wait ", sec, "sec")
           }
