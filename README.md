@@ -8,7 +8,7 @@ nginx-repo.crt  nginx-repo.key
 ```
 ## 2. NGINX Plus + NGINX App Protect ContainerのBuild
 ```
-docker build --no-cache -t nginxplus-nap .
+docker build --no-cache -t nginx-plus-all .
 ```
 
 ## 3. Container Imageの登録

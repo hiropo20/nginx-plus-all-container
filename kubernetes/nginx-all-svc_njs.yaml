@@ -4,13 +4,13 @@ metadata:
   name: nginx-conf
 data:
   njs-default.conf: |
-    js_import njs from njs-header.js
+    js_import njs from njs-http_info.js
     server {
         listen 8080;
         proxy_http_version 1.1;
 
         location / {
-
+          js_content njs.headers;
 
         }
 
@@ -23,7 +23,28 @@ data:
             root   /usr/share/nginx/html;
         }
     }
-  njs-header.js: |
+  njs-http_info.js: |
+    export default { all, headers, args };
+    function all(r) {
+      let str = { headers: "" , args: "", reqbody: "", resbody: ""};
+      str.headers = r.headersIn;
+      str.args = r.args;
+      str.reqbody = r.requestBody;
+      str.resbody = r.responseBody;
+      
+      r.return(200, JSON.stringify(str));
+      return;
+    }
+    function headers(r) {
+      let str = r.headersIn;
+      r.return(200, JSON.stringify(str));
+      return;
+    }
+    function args(r) {
+      let str = r.agrs;
+      r.return(200, JSON.stringify(str));
+      return;
+    }
 
 ---
 apiVersion: apps/v1
@@ -57,6 +78,9 @@ spec:
             - key: njs-default.conf
               path: njs-default.conf
               mode: 0644
+            - key: njs-http_info.js
+              path: njs-http_info.js
+              mode: 0644         
 ---
 apiVersion: v1
 kind: Service
