@@ -48,8 +48,8 @@ data:
             
             ngx.say("sec:",sec)
 
-            -- ngx.sleep(1)
-            -- ngx.print("wait 1sec")
+            ngx.sleep(sec)
+            ngx.say("wait ", sec, "sec")
           }
 
         }
