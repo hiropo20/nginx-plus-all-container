@@ -62,5 +62,74 @@ curl -H "Host: webapp.example.com" "http://localhost/?a=1&b=2" -X POST -d '{"Nam
 ※ 利用する関数に応じた結果が表示されます ※
 ```
 
+main.reqall を指定した場合の実行例
+
+```
+$ curl -s -H "Host: webapp.example.com" "http://localhost/?a=1&b=2,3,4,5" -X POST -d '{"Name":"dummy-data"}' | jq
+=====SVCに到達したリクエストの情報が以下の様に表示される
+{
+  "headers": [
+    [
+      "Connection",
+      "close"
+    ],
+    [
+      "X-Real-IP",
+      "10.1.1.9"
+    ],
+    [
+      "X-Forwarded-For",
+      "10.1.1.9"
+    ],
+    [
+      "X-Forwarded-Host",
+      "webapp.example.com"
+    ],
+    [
+      "X-Forwarded-Port",
+      "80"
+    ],
+    [
+      "X-Forwarded-Proto",
+      "http"
+    ],
+    [
+      "Host",
+      "webapp.example.com"
+    ],
+    [
+      "Content-Length",
+      "21"
+    ],
+    [
+      "User-Agent",
+      "curl/7.68.0"
+    ],
+    [
+      "Accept",
+      "*/*"
+    ],
+    [
+      "Content-Type",
+      "application/x-www-form-urlencoded"
+    ]
+  ],
+  "status": 0,
+  "httpversion": "1.1",
+  "method": "POST",
+  "uri": "/",
+  "args": [
+    [
+      "a",
+      "1"
+    ],
+    [
+      "b",
+      "2,3,4,5"
+    ]
+  ],
+  "reqbody": "{\"Name\":\"dummy-data\"}"
+}
+```
 
 ### Docker-compose ``作成中``
