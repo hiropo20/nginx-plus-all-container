@@ -11,7 +11,7 @@ git clone https://github.com/hiropo20/nginx-plus-all-container
 $ ls
 nginx-repo.crt  nginx-repo.key
 ```
-## 2. NGINX Plus + NGINX App Protect ContainerのBuild
+## 2. NGINX Plus + NAP WAF + NAP DoS + NJS + LUA のBuild
 ```
 docker build --no-cache -t nginx-plus-all .
 ```
