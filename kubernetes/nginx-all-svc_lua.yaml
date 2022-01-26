@@ -3,25 +3,32 @@ kind: ConfigMap
 metadata:
   name: nginx-conf
 data:
-  ap-default.conf: |
-    resolver 127.0.0.1;
-    resolver_timeout 10s;
-
-    upstream backend-srv {
-        zone app_backend_group 64k;
-        server 127.0.0.1:80; 
-    }
+  lua-default.conf: |
 
     server {
         listen 8080;
         proxy_http_version 1.1;
 
         location / {
-            client_max_body_size 0;
-            default_type text/html;
-            # set your backend here
-            proxy_pass http://backend-srv;
-            proxy_set_header Host $host;
+          # resply req header information
+          content_by_lua_block {
+            ngx.header.content_type = 'text/html'
+            local h, err = ngx.req.get_headers()
+            if err == "truncated" then
+                ngx.say("get_header error.")
+                ngx.exit(500)
+                return
+            end
+
+            local res = "<html><head> <title>Request Header Responce</title> </head> <body>"
+            for k, v in pairs(h) do
+                res = res.."\""..k.."\":".."\""..v.."\"<br>"
+            end
+            res = res.."</body></html>"
+            ngx.say(res)
+          }
+
+
         }
 
         location /api {
@@ -31,12 +38,6 @@ data:
 
         location = /dashboard.html {
             root   /usr/share/nginx/html;
-        }
-    }
-    server { 
-        listen 80;
-        location / {
-          return 200 "nginx-plus-all\n";
         }
     }
 ---
@@ -68,8 +69,8 @@ spec:
         configMap:
           name: nginx-conf
           items:
-            - key: ap-default.conf
-              path: ap-default.conf
+            - key: lua-default.conf
+              path: lua-default.conf
               mode: 0644
 ---
 apiVersion: v1

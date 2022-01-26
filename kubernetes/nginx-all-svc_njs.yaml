@@ -3,25 +3,15 @@ kind: ConfigMap
 metadata:
   name: nginx-conf
 data:
-  ap-default.conf: |
-    resolver 127.0.0.1;
-    resolver_timeout 10s;
-
-    upstream backend-srv {
-        zone app_backend_group 64k;
-        server 127.0.0.1:80; 
-    }
-
+  njs-default.conf: |
+    js_import njs from njs-header.js
     server {
         listen 8080;
         proxy_http_version 1.1;
 
         location / {
-            client_max_body_size 0;
-            default_type text/html;
-            # set your backend here
-            proxy_pass http://backend-srv;
-            proxy_set_header Host $host;
+
+
         }
 
         location /api {
@@ -33,12 +23,8 @@ data:
             root   /usr/share/nginx/html;
         }
     }
-    server { 
-        listen 80;
-        location / {
-          return 200 "nginx-plus-all\n";
-        }
-    }
+  njs-header.js: |
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -68,8 +54,8 @@ spec:
         configMap:
           name: nginx-conf
           items:
-            - key: ap-default.conf
-              path: ap-default.conf
+            - key: njs-default.conf
+              path: njs-default.conf
               mode: 0644
 ---
 apiVersion: v1

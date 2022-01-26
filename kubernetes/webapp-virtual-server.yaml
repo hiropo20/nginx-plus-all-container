@@ -1,14 +1,14 @@
 apiVersion: k8s.nginx.org/v1
 kind: VirtualServer
 metadata:
-  name: nginx-all-webapp
+  name: nginx-plus-all-webapp
 spec:
   host: webapp.example.com
   upstreams:
-  - name: nginx-all
-    service: nginx-all-svc
-    port: 80
+  - name: nginx-plus-all
+    service: nginx-plus-all-svc
+    port: 8080
   routes:
   - path: /
     action:
-      pass: nginx-all
+      pass: nginx-plus-all
