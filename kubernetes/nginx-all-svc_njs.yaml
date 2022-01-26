@@ -4,13 +4,16 @@ metadata:
   name: nginx-conf
 data:
   njs-default.conf: |
-    js_import njs from /etc/nginx/conf.d/njs-http_info.js;
+    js_import main from /etc/nginx/conf.d/njs-http_info.js;
     server {
         listen 8080;
         proxy_http_version 1.1;
 
         location / {
-          js_content njs.headers;
+          #js_content main.hello;
+          #js_content main.headers;
+          #js_content main.args;
+          js_content main.reqall;
 
         }
 
@@ -24,27 +27,32 @@ data:
         }
     }
   njs-http_info.js: |
-    export default { all, headers, args, hello };
+    export default { reqall, headers, args, hello, sleep };
     function hello(r) {
       r.return(200, "Hello world!\n")
     }
-    function all(r) {
-      let str = { headers: "" , args: "", reqbody: "", resbody: ""};
-      str.headers = r.headersIn;
-      str.args = r.args;
-      str.reqbody = r.requestBody;
-      str.resbody = r.responseBody;
+    function reqall(r) {
+      let str = {};
+      str.headers = r.rawHeadersIn;
+      str.status = r.status;
+      str.httpversion = r.httpVersion;
+      str.method = r.method;
+      str.uri = r.uri;
+      str.args = new Array();
+      r.variables.args.split("&").forEach(e => str.args.push(e.split("=")));
+      str.reqbody = r.requestText;
       
       r.return(200, JSON.stringify(str));
       return;
     }
     function headers(r) {
-      let str = r.headersIn;
+      let str = r.rawHeadersIn;
       r.return(200, JSON.stringify(str));
       return;
     }
     function args(r) {
-      let str = r.agrs;
+      let str = new Array();
+      r.variables.args.split("&").forEach(e => str.push(e.split("=")));
       r.return(200, JSON.stringify(str));
       return;
     }

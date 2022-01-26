@@ -27,7 +27,12 @@ data:
             res = res.."</body></html>"
             ngx.say(res)
           }
-
+        }
+        location /wait {
+          content_by_lua_block {
+            ngx.sleep(1)
+            ngx.print("wait 1sec")
+          }
 
         }
 
