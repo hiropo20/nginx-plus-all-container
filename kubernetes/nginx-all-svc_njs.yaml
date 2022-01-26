@@ -24,7 +24,10 @@ data:
         }
     }
   njs-http_info.js: |
-    export default { all, headers, args };
+    export default { all, headers, args, hello };
+    function hello(r) {
+      r.return(200, "Hello world!\n")
+    }
     function all(r) {
       let str = { headers: "" , args: "", reqbody: "", resbody: ""};
       str.headers = r.headersIn;
