@@ -45,10 +45,10 @@ data:
 
             for key, val in pairs(args) do
                 if key == "sec" then
-                  if pcall(isnum, val) then
-                    local sec = 1 
+                  if tonumber(val) then
+                    local sec = tonumber(val) 
                   else
-                    local sec = val
+                    local sec = 1
                   end
                 end
             end
