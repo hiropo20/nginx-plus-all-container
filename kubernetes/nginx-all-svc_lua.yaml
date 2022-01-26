@@ -42,7 +42,7 @@ data:
             for key, val in pairs(args) do
                 if key == "sec" then
                   if tonumber(val) then
-                    local sec = tonumber(val) 
+                    sec = tonumber(val) 
                     ngx.say(tonumber(val))
                 end
             end
