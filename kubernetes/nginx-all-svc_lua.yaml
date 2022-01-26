@@ -44,6 +44,7 @@ data:
                   if tonumber(val) then
                     sec = tonumber(val) 
                     ngx.say(tonumber(val))
+                  end
                 end
             end
                 --  if type(val+0) == 'number' then
