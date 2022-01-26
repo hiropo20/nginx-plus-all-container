@@ -38,13 +38,23 @@ data:
             end
    
             local sec = 1
+
+            function isnum(number)
+              return number + 0
+            end
+
             for key, val in pairs(args) do
                 if key == "sec" then
-                  if type(val+0) == 'number' then
-                    sec = val
+                  if pcall(isnum, val) then
+                    local sec = 1 
+                  else
+                    local sec = val
                   end
                 end
             end
+                --  if type(val+0) == 'number' then
+                --    sec = val
+                --  end
             
             ngx.say("sec:",sec)
 
