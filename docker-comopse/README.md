@@ -125,19 +125,19 @@ Log転送先設定の変更
 
 正常な通信の結果
 ```
-$ curl -H "Host: webapp.example.com" "http://localhost/"
+$ curl "http://localhost/"
 nginx-plus-all
 ```
 
 攻撃をブロックした場合の結果
 ```
-$ curl -H "Host: webapp.example.com" "http://localhost/?<script>"
+$ curl "http://localhost/?<script>"
 <html><head><title>Request Rejected</title></head><body>The requested URL was rejected. Please consult with your administrator.<br><br>Your support ID is: 3509312729745697583<br><br><a href='javascript:history.back();'>[Go Back]</a></body></html>ubuntu@ip-10-1-1-8:~/nginx-plus-all-container/kubernetes$
 ```
 
 ターミナルのログ
 ```
-$ kubectl logs nginx-plus-all-7cc9cbb7c5-w4w6z
+$ docker logs nginx-plus-all
 ※省略※
 127.0.0.1 - - [27/Jan/2022:00:23:37 +0000] "GET / HTTP/1.1" 200 15 "-" "curl/7.68.0" "10.1.1.9"
 192.168.127.15 - - [27/Jan/2022:00:23:37 +0000] "GET / HTTP/1.1" 200 15 "-" "curl/7.68.0" "10.1.1.9"
