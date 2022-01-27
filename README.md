@@ -32,7 +32,7 @@ docker build --no-cache -t nginx-plus-all .
 - nginx-all-svc_lua.yaml
   - lua を用いたサンプル
   - ``/`` : HTTPリクエストのHeader情報をHTMLで表示する
-  - ``/wait`` : 1秒後応答する
+  - ``/wait`` : 一定秒数の後、応答する。デフォルト1秒。uri args の sec で秒数を指定できる。(例:sec=3)
 - nginx-all-svc_njs.yaml 
   - njs を用いたサンプル
   - ``/`` で関数を指定することにより応答を変更できる 
