@@ -10,8 +10,8 @@ services:
       - '80:80'
       - '8080:8080'
     volumes:
-      - '.config/conf.d:/etc/nginx/conf.d/'
-      #- '.config/lua-conf.d:/etc/nginx/conf.d/'
-      #- '.config/njs-conf.d:/etc/nginx/conf.d/'
-      #- '.config/waf-conf.d:/etc/nginx/conf.d/'
-      #- '.config/dos-conf.d:/etc/nginx/conf.d/'
+      - '.config/conf.d:/etc/nginx/conf.d'
+      #- '.config/lua-conf.d:/etc/nginx/conf.d'
+      #- '.config/njs-conf.d:/etc/nginx/conf.d'
+      #- '.config/waf-conf.d:/etc/nginx/conf.d'
+      #- '.config/dos-conf.d:/etc/nginx/conf.d'
