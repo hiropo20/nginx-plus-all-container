@@ -14,10 +14,9 @@ function reqall(r) {
     str.args = new Array();
     if ( /^(?=.*&)(?=.*=)/.test(r.variables.args) ) {
       r.variables.args.split("&").forEach(e => str.args.push(e.split("=")));
+    } else if ( /^(?=.*=)/.test(r.variables.args) ) {
+        str.args.push(r.variables.args.split("="));
     }
-    if ( /^(?=.*=)/.test(r.variables.args) ) {
-        str.args.push(e.split("="));
-      }
     str.reqbody = r.requestText;
   }
   r.return(200, JSON.stringify(str));
