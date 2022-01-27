@@ -11,8 +11,8 @@ function reqall(r) {
   str.uri = r.uri;
   str.argslen = r.variables.args;
 
-/*
-  if ( 0 !== r.variables.args.length )  {
+
+  if ( "" !== r.variables.args )  {
     str.args = new Array();
     if ( /^(?=.*&)(?=.*=)/.test(r.variables.args) ) {
       r.variables.args.split("&").forEach(e => str.args.push(e.split("=")));
@@ -20,7 +20,7 @@ function reqall(r) {
         str.args.push(r.variables.args.split("="));
     }
   }
-*/
+
   str.reqbody = r.requestText;
   r.return(200, JSON.stringify(str));
   return;
