@@ -66,7 +66,7 @@ main.reqall を指定した場合の実行例
 
 ```
 $ curl -s -H "Host: webapp.example.com" "http://localhost/?a=1&b=2,3,4,5" -X POST -d '{"Name":"dummy-data"}' | jq
-=====SVCに到達したリクエストの情報が以下の様に表示される
+=====Serviceに到達したリクエストの情報が以下の様に表示される
 {
   "headers": [
     [
