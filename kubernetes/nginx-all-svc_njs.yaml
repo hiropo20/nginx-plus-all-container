@@ -27,7 +27,7 @@ data:
         }
     }
   njs-http_info.js: |
-    export default { reqall, headers, args, hello };
+    export default { reqall, headers, args, hello};
     function hello(r) {
       r.return(200, "Hello world!\n")
     }
@@ -38,10 +38,8 @@ data:
       str.httpversion = r.httpVersion;
       str.method = r.method;
       str.uri = r.uri;
-      str.args = new Array();
-      r.variables.args.split("&").forEach(e => str.args.push(e.split("=")));
+      str.args = r.variables.args;
       str.reqbody = r.requestText;
-      
       r.return(200, JSON.stringify(str));
       return;
     }
@@ -51,8 +49,7 @@ data:
       return;
     }
     function args(r) {
-      let str = new Array();
-      r.variables.args.split("&").forEach(e => str.push(e.split("=")));
+      let str = r.variables.args;
       r.return(200, JSON.stringify(str));
       return;
     }

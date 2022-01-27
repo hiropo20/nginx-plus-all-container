@@ -20,8 +20,7 @@ function headers(r) {
   return;
 }
 function args(r) {
-  let str = new Array();
-  str = r.variables.args;
+  let str = r.variables.args;
   r.return(200, JSON.stringify(str));
   return;
 }
