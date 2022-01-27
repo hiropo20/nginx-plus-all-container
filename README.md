@@ -24,4 +24,5 @@ docker build --no-cache -t nginx-plus-all .
 ### Kubernetes
 - [Kubernetes](https://github.com/hiropo20/nginx-plus-all-container/tree/main/kubernetes)   
 
-### Docker-compose ``作成中``
+### Docker-compose
+- [docker-compose](https://github.com/hiropo20/nginx-plus-all-container/tree/main/docker-compose)  
