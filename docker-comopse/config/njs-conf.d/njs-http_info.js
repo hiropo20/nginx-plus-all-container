@@ -1,4 +1,4 @@
-export default { reqall, headers, args, hello, sleep };
+export default { reqall, headers, args, hello};
 function hello(r) {
   r.return(200, "Hello world!\n")
 }
