@@ -9,10 +9,17 @@ function reqall(r) {
   str.httpversion = r.httpVersion;
   str.method = r.method;
   str.uri = r.uri;
-  str.args = new Array();
-  r.variables.args.split("&").forEach(e => str.args.push(e.split("=")));
-  str.reqbody = r.requestText;
-  
+
+  if ( 0 !== r.variables.args.length )  {
+    str.args = new Array();
+    if ( /^(?=.*&)(?=.*=)/.test(r.variables.args) ) {
+      r.variables.args.split("&").forEach(e => str.args.push(e.split("=")));
+    }
+    if ( /^(?=.*=)/.test(r.variables.args) ) {
+        str.args.push(e.split("="));
+      }
+    str.reqbody = r.requestText;
+  }
   r.return(200, JSON.stringify(str));
   return;
 }
