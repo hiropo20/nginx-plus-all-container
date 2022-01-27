@@ -9,7 +9,7 @@ function reqall(r) {
   str.httpversion = r.httpVersion;
   str.method = r.method;
   str.uri = r.uri;
-  str.argslen = r.variables.args.length;
+  str.argslen = r.variables.args;
 
 /*
   if ( 0 !== r.variables.args.length )  {
