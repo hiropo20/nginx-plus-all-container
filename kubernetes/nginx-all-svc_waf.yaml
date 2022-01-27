@@ -99,8 +99,14 @@ spec:
         configMap:
           name: nginx-conf
           items:
-            - key: lua-default.conf
-              path: lua-default.conf
+            - key: custom_log_format.json
+              path: custom_log_format.json
+              mode: 0644
+            - key: waf-default.conf
+              path: waf-default.conf
+              mode: 0644
+            - key: custom_policy.json
+              path: custom_policy.json
               mode: 0644
 ---
 apiVersion: v1
