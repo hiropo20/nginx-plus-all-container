@@ -9,7 +9,9 @@ function reqall(r) {
   str.httpversion = r.httpVersion;
   str.method = r.method;
   str.uri = r.uri;
+  str.argslen = r.variables.args.length;
 
+/*
   if ( 0 !== r.variables.args.length )  {
     str.args = new Array();
     if ( /^(?=.*&)(?=.*=)/.test(r.variables.args) ) {
@@ -17,8 +19,9 @@ function reqall(r) {
     } else if ( /^(?=.*=)/.test(r.variables.args) ) {
         str.args.push(r.variables.args.split("="));
     }
-    str.reqbody = r.requestText;
   }
+*/
+  str.reqbody = r.requestText;
   r.return(200, JSON.stringify(str));
   return;
 }
