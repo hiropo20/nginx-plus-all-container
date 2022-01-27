@@ -35,7 +35,10 @@ kubectl replace --force -f nginx-all-svc_njs.yaml
 
 # 3.動作確認
 
+## NJS / LUA
 ```
+kubectl replace --force -f nginx-all-svc_njs.yaml
+
 curl -H "Host: webapp.example.com" "http://localhost/?a=1&b=2" -X POST -d '{"Name":"sample123"}' 
 
 ※ 利用する関数に応じた結果が表示されます ※
@@ -109,4 +112,40 @@ $ curl -s -H "Host: webapp.example.com" "http://localhost/?a=1&b=2,3,4,5" -X POS
   ],
   "reqbody": "{\"Name\":\"dummy-data\"}"
 }
+```
+
+
+## WAF
+Log転送先設定の変更
+
+以下、Directiveの宛先を適切なSyslogサーバへ変更してください
+```
+        app_protect_security_log "/etc/nginx/conf.d/custom_log_format.json" syslog:server=127.0.0.1:514;
+```
+
+デプロイ
+```
+kubectl replace --force -f nginx-all-svc_waf.yaml
+```
+
+正常な通信の結果
+```
+$ curl -H "Host: webapp.example.com" "http://localhost/"
+nginx-plus-all
+```
+
+攻撃をブロックした場合の結果
+```
+$ curl -H "Host: webapp.example.com" "http://localhost/?<script>"
+<html><head><title>Request Rejected</title></head><body>The requested URL was rejected. Please consult with your administrator.<br><br>Your support ID is: 3509312729745697583<br><br><a href='javascript:history.back();'>[Go Back]</a></body></html>ubuntu@ip-10-1-1-8:~/nginx-plus-all-container/kubernetes$
+```
+
+ターミナルのログ
+```
+$ kubectl logs nginx-plus-all-7cc9cbb7c5-w4w6z
+※省略※
+127.0.0.1 - - [27/Jan/2022:00:23:37 +0000] "GET / HTTP/1.1" 200 15 "-" "curl/7.68.0" "10.1.1.9"
+192.168.127.15 - - [27/Jan/2022:00:23:37 +0000] "GET / HTTP/1.1" 200 15 "-" "curl/7.68.0" "10.1.1.9"
+192.168.127.15 - - [27/Jan/2022:00:23:45 +0000] "GET /?<script> HTTP/1.1" 200 246 "-" "curl/7.68.0" "10.1.1.9"
+
 ```
