@@ -40,7 +40,8 @@ docker-compose -f nginx-all-docker-compose.yaml restart
 
 ## NJS / LUA
 ```
-curl -H "Host: webapp.example.com" "http://localhost/wait"  
+curl -H "Host: webapp.example.com" "http://localhost/wait?msec=3000"  
+※ JSの場合msec、LUAの場合secを指定します
 ```
 指定した秒数停止した後、応答を返します
 ```
