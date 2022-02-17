@@ -19,6 +19,7 @@
     - main.headers :: JS配列形式で request headerを返す
     - main.args :: JS配列形式で request argsを返す
     - main.reqall :: JS配列形式で 複数のrequest の情報を返す
+  - ``/wait`` : 一定秒数の後、応答する。デフォルト1秒。uri args の msec で秒数を指定できる。(例:msec=3000)
 - ./config/waf-conf.d
   - シンプルなWAF設定
 
@@ -38,6 +39,15 @@ docker-compose -f nginx-all-docker-compose.yaml restart
 # 3.動作確認
 
 ## NJS / LUA
+```
+curl -H "Host: webapp.example.com" "http://localhost/wait"  
+```
+指定した秒数停止した後、応答を返します
+```
+wait 3000msec 
+※ JSの場合msec、LUAの場合secの表示となります
+```
+
 ```
 curl -H "Host: webapp.example.com" "http://localhost/?a=1&b=2" -X POST -d '{"Name":"sample123"}' 
 
