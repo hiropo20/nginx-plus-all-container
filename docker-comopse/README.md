@@ -1,7 +1,4 @@
 
-# 0. NGINX Ingress Controlerのデプロイ
-予めNGINX Ingress Controllerをデプロイしておく
-
 # 1. ファイルの内容
 - nginx-all-docker-compose.yaml
   - Docker Composeファイル
