@@ -39,6 +39,12 @@ function hello(r) {
 
 // reqall
 function reqall(r) {
+  let _args = {}
+  for (var a in r.args) {
+      _args[a] = r.args[a];
+  }
+  
+  
   let str = {
     request: {},
     network: {},
@@ -52,7 +58,7 @@ function reqall(r) {
   str.request.method = r.method;
   str.request.scheme = r.variables.scheme;
   str.request.uri = r.uri;
-  str.request.args = r.variables.args;
+  str.request.args = Object.keys(_args).length ? _args : undefined;
   str.request.requestText = r.requestText;
   str.request.fullPath = r.variables.request_uri;
 
