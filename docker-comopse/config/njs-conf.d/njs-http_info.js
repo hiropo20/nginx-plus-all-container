@@ -55,7 +55,6 @@ function reqall(r) {
   str.request.args = r.variables.args;
   str.request.requestText = r.requestText;
   str.request.fullPath = r.variables.request_uri;
-  str.request.body = r.requestBody != 'undefined' ? r.requestBody : undefined;
 
   str.environment.hostname =  r.variables.hostname;
 

@@ -7,7 +7,7 @@ services:
     container_name: nginx-plus-all
     ports:
       - '443:443'
-      - '80:80'
+      #- '80:80'
       - '8080:8080'
     volumes:
       - './config/conf.d:/etc/nginx/conf.d'
