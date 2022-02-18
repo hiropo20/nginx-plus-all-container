@@ -3,7 +3,7 @@ services:
   web:
     image: 'nginx-plus-all:latest'
     restart: always
-    hostname: 'webapp.example.com'
+    hostname: 'echoapp.net'
     container_name: nginx-plus-all
     ports:
       - '443:443'
@@ -15,3 +15,4 @@ services:
       #- './config/njs-conf.d:/etc/nginx/conf.d'
       #- './config/waf-conf.d:/etc/nginx/conf.d'
       #- './config/dos-conf.d:/etc/nginx/conf.d'
+      - './config/ssl:/etc/nginx/conf.d/ssl'
